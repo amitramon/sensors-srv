@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# run this script from the parent directory of 'sensor_server'
+. venv/bin/activate
+exec waitress-serve --call 'sensor_server:create_app'
+
+

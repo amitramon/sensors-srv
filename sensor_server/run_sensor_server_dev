@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# run this script from the parent directory of 'sensor_server'
+. venv_dev/bin/activate
+export FLASK_ENV=development
+export FLASK_APP=sensor_server
+
+exec flask run
