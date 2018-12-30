@@ -15,7 +15,7 @@ COPY sensor_server /sensor_server_app/sensor_server
 COPY requirements.txt /sensor_server_app
 
 # bootstrap script
-COPY run_app.sh /sensor_server_app
+COPY bin/run_app.sh /sensor_server_app
 
 # install python packages
 RUN pip install -r /sensor_server_app/requirements.txt

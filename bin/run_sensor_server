@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Run the Sensor Server in "production" mode - it is run using 'waitress'.
+# Use this script for basic testing of production environment.
+
 # run this script from the parent directory of 'sensor_server'
 . venv/bin/activate
 exec waitress-serve --call 'sensor_server:create_app'

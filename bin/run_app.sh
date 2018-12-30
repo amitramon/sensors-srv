@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# System initialization and start up script for the Docker container,
+# used for building the container.
+
 ROOT_DIR=/sensor_server_app
 DB_DIR=$ROOT_DIR/instance
 DB_FILE=$DB_DIR/sensors.sqlite
