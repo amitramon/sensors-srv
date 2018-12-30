@@ -3,10 +3,7 @@
 from datetime import datetime
 from time import time
 from . import db_core
-from .. import (SENSOR_ID_KEY,
-                READING_TYPE_KEY,
-                VALUE_KEY,
-                TIMESTAMP_KEY)
+from .. import commons as cmn
 
 
 def time_sec_to_isoformat(time_sec):
@@ -37,10 +34,10 @@ def get_rows(query_str, params=[]):
     rows = conn.execute(query_str, params).fetchall()
 
     return [{
-        SENSOR_ID_KEY: row[0],
-        READING_TYPE_KEY: row[1],
-        VALUE_KEY: row[2],
-        TIMESTAMP_KEY: time_sec_to_isoformat(row[3])
+        cmn.SENSOR_ID_KEY: row[0],
+        cmn.READING_TYPE_KEY: row[1],
+        cmn.VALUE_KEY: row[2],
+        cmn.TIMESTAMP_KEY: time_sec_to_isoformat(row[3])
     } for row in rows]
 
 
@@ -97,10 +94,10 @@ def add_sensor_reading(sensor_id, reading_type, value):
     conn.commit()
 
     return {
-        SENSOR_ID_KEY: sensor_id,
-        READING_TYPE_KEY: reading_type,
-        VALUE_KEY: value,
-        TIMESTAMP_KEY: time_sec_to_isoformat(time_now)
+        cmn.SENSOR_ID_KEY: sensor_id,
+        cmn.READING_TYPE_KEY: reading_type,
+        cmn.VALUE_KEY: value,
+        cmn.TIMESTAMP_KEY: time_sec_to_isoformat(time_now)
     }
 
 

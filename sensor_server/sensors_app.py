@@ -6,11 +6,7 @@ Includes URL routing defintions and request handling rutines.
 from flask import render_template
 from flask_restful import reqparse, abort, Api, Resource
 from .db import db_access
-from . import (SENSOR_ID_KEY,
-               READING_TYPE_KEY,
-               VALUE_KEY,
-               TIMESTAMP_KEY,
-               READINGS_LIST_KEY)
+from . import commons as cmn
 
 
 class SensorError(Exception):
@@ -40,11 +36,11 @@ class SensorRequestParser(reqparse.RequestParser):
 
     def __init__(self):
         super().__init__()
-        self.add_argument(SENSOR_ID_KEY, type=int,
+        self.add_argument(cmn.SENSOR_ID_KEY, type=int,
                           help='id of sensor; type: integer value')
-        self.add_argument(READING_TYPE_KEY,
+        self.add_argument(cmn.READING_TYPE_KEY,
                           help='type of sensor reading; type: string')
-        self.add_argument(VALUE_KEY, type=float,
+        self.add_argument(cmn.VALUE_KEY, type=float,
                           help='value of sensor reading;'
                           ' type: floating point value')
 
@@ -55,7 +51,7 @@ class SensorData(Resource):
     def get(self):
         """Get list of all stored readings."""
 
-        return {READINGS_LIST_KEY: db_access.get_sensor_readings()}
+        return {cmn.READINGS_LIST_KEY: db_access.get_sensor_readings()}
 
 
 class SensorAdd(Resource):
@@ -68,9 +64,9 @@ class SensorAdd(Resource):
         """Add a new sensor reading."""
 
         args = self._parser.parse_args()
-        new_reading = db_access.add_sensor_reading(args[SENSOR_ID_KEY],
-                                                   args[READING_TYPE_KEY],
-                                                   args[VALUE_KEY])
+        new_reading = db_access.add_sensor_reading(args[cmn.SENSOR_ID_KEY],
+                                                   args[cmn.READING_TYPE_KEY],
+                                                   args[cmn.VALUE_KEY])
 
         # Return the newly added data and HTTP 'Created' status (201).
         return new_reading, 201
@@ -106,8 +102,8 @@ class SensorById(Resource):
             raise SensorError(404,
                               f"Sensor Id {sensor_id} doesn't exist")
 
-        return {SENSOR_ID_KEY: sensor_id,
-                READINGS_LIST_KEY: readings}
+        return {cmn.SENSOR_ID_KEY: sensor_id,
+                cmn.READINGS_LIST_KEY: readings}
 
 
 class SensorByType(Resource):
@@ -122,8 +118,8 @@ class SensorByType(Resource):
             raise SensorError(404,
                               f"Reading Type {reading_type} doesn't exist")
 
-        return {READING_TYPE_KEY: reading_type,
-                READINGS_LIST_KEY: readings}
+        return {cmn.READING_TYPE_KEY: reading_type,
+                cmn.READINGS_LIST_KEY: readings}
 
 
 def init_rest_api(app):

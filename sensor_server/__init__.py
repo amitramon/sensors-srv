@@ -2,14 +2,8 @@
 
 import os
 from flask import Flask
-
-# Constants used for describing data key names (in REST requests and
-# in JSON data).
-SENSOR_ID_KEY = 'sensor-id'
-READING_TYPE_KEY = 'reading-type'
-VALUE_KEY = 'value'
-TIMESTAMP_KEY = 'timestamp'
-READINGS_LIST_KEY = 'sensor-readings'
+from .db import db_core
+from . import sensors_app
 
 
 def create_app(test_config=None):
@@ -39,10 +33,8 @@ def create_app(test_config=None):
         pass
 
     # Initialize database module.
-    from .db import db_core
     db_core.init_app(app)
     # Initialize Flask RESTful module.
-    from . import sensors_app
     sensors_app.init_rest_api(app)
 
     return app
