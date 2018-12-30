@@ -1,0 +1,8 @@
+version: '3'
+services:
+  sensors:
+    build: .
+    ports:
+    - "8080:8080"
+    volumes:
+    - ./server_instance:/sensor_server_app/instance
