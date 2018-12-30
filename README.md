@@ -15,10 +15,29 @@ database and retrieve stored entries. A sensor reading is comprised of
   value should be interpreted in the context of the `reading type`.
 - `timestamp`: the time in which the reading was logged by the server.
 
+## Server API Summary
+
+This section describes briefly the URLs for accessing the server.
+
+* `/add/`: add a new sensor reading entry. The data should be provided
+  in the request's POST data. For more details see the following
+  sections.
+  
+* `/`: return the list of all stored sensor readings.
+
+* `/sensors/`: return a list of the IDs of all stored sensors.
+
+* `/sensors/<sensor_id>`: return a list of sensor readings for the
+  given sensor.
+
+* `/types/`: return a list of all stored sensor types.
+
+* `/types/<reading-type>`: return a list of all sensor reading that
+  have the given reading type.
+
 ## Server API
 
-The API for accessing the server by clients is described in the
-following sections.
+The following sections describe the server API in details.
 
 ### Adding a Sensor Reading Entry
 
@@ -111,7 +130,22 @@ The server was built and tested for Python 3. In addition to the
 standard Python modules the packages `Flask` and `Flask-RESTful` are
 required.
 
-## Running the Server
+## Build and Run a Docker Container
+
+The system is ready for packing it in a Docker container. To build a
+container run the following command from `<root-dir>`:
+
+    $ docker-compose build
+
+You will then be able to run it with:
+
+    $ docker-compose up
+
+The system comes configured to map the service's port to port 8080 on
+the host, and the `sqlite3` database directory will be mapped to a local
+directory named `server_instance`.
+
+## Running the Server Locally
 
 The server comes with two shell scripts for running it, one for
 running it in development mode and one for production mode. Both
@@ -124,33 +158,37 @@ with the required modules installed.
 In the following sections it is assumed that the system is installed
 in a directory `<root-dir>`.
 
-### Initializing the Database
+### Initializing a Local Database
 
-Activate the virtual environment, then, from `<root-dir>`, run the
-command
+Use the command
 
-    FLASK_APP=sensor_server flask init-db
+    $ ./bin/init_db
+
+The database will be created in a directory named `instance` in the
+current directory.
+
+Note: if you run this command when a database already exists it will
+be completely cleared. Use caution!
 
 ### Running in Development Mode
 
 Use the command
 
-    $ ./sensor_server/run_sensor_server_dev
+    $ ./bin/run_sensor_server_dev
 
 The virtual environment should be `<root-dir>/venv_dev`.
 
-### Running in Production Mode
+### Testing Production Mode
 
-There are different ways to choose from for deploying and running the
-system in production. However, an easy way to do that is to use the
-`waitress` Python WSGI server.
+In production mode the system uses the **Waitress WSGI** server. You can
+run it locally in that mode for testing the configuration.
 
-If you want to go that way, create a virtual environment
-`<root-dir>/venv`, and install in it the packages `Flask`,
-`Flask-RESTful` and `waitress`.
+You will first have to create a virtual environment
+`<root-dir>/venv`, and install in it the packages listed in the
+`requirements.txt` file.
 
 Then, from `<root-dir>`, run the command
 
-    $ ./sensor_server/run_sensor_server
+    $ ./bin/run_sensor_server
 
 The server will start on port 8080.
