@@ -2,8 +2,9 @@
 
 from datetime import datetime
 from time import time
-from . import db_core
+
 from .. import commons as cmn
+from . import db_core
 
 
 def time_sec_to_isoformat(time_sec):

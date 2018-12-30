@@ -1,7 +1,9 @@
 """Sensor Server initialization and main application factory."""
 
 import os
+
 from flask import Flask
+
 from .db import db_core
 from . import sensors_app
 

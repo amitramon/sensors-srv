@@ -5,8 +5,9 @@ Includes URL routing defintions and request handling rutines.
 
 from flask import render_template
 from flask_restful import reqparse, abort, Api, Resource
-from .db import db_access
+
 from . import commons as cmn
+from .db import db_access
 
 
 class SensorError(Exception):
