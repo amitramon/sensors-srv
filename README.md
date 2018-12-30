@@ -23,16 +23,16 @@ This section describes briefly the URLs for accessing the server.
   in the request's POST data. For more details see the following
   sections.
   
-* `/`: return the list of all stored sensor readings.
+* `/`: list all stored sensor readings.
 
-* `/sensors/`: return a list of the IDs of all stored sensors.
+* `/sensors/`: list the distinct IDs of all stored sensors.
 
-* `/sensors/<sensor_id>`: return a list of sensor readings for the
+* `/sensors/<sensor_id>`: list all sensor readings for the
   given sensor.
 
-* `/types/`: return a list of all stored sensor types.
+* `/types/`: list the distinct types of all stored sensors.
 
-* `/types/<reading-type>`: return a list of all sensor reading that
+* `/types/<reading-type>`: list all sensor reading that
   have the given reading type.
 
 ## Server API
@@ -56,7 +56,7 @@ command would look similar to this:
 As a response to this call the server return the record of the newly
 added reading.
 
-### Getting all Sensor Data
+### Getting all Sensor Readings
 
 Accessing the server's root URL will return a list of all stored
 reading entries, in ascending timestamp order.
@@ -74,7 +74,7 @@ the server's database
 
 The results are in ascending numerical order.
 
-### Getting a Sensor Reading by Sensor Id
+### Getting Sensor Readings by Sensor Id
 
 Use the following URL to obtain a list of all reading for the given
 sensor.
@@ -90,7 +90,7 @@ exist in the database a 404 error is returned.
 	
 This return a list of all reading of the sensor identified by 42.
 	
-### Get a List of Available Reading Types
+### Getting Available Reading Types
 
 Use the following URL to obtain a list of all reading types that exist
 in the server's database
@@ -99,7 +99,7 @@ in the server's database
 
 The results are in ascending alphabetical order.
 
-### Get a Sensor Reading by Reading Type
+### Getting Sensor Readings by Reading Type
 
 Use the following URL to obtain a list of all reading (possibly from
 different sensors) for the given reading type.
@@ -130,7 +130,7 @@ The server was built and tested for Python 3. In addition to the
 standard Python modules the packages `Flask` and `Flask-RESTful` are
 required.
 
-## Build and Run a Docker Container
+## Building and Running a Docker Container
 
 The system is ready for packing it in a Docker container. To build a
 container run the following command from `<root-dir>`:
@@ -141,9 +141,9 @@ You will then be able to run it with:
 
     $ docker-compose up
 
-The system comes configured to map the service's port to port 8080 on
-the host, and the `sqlite3` database directory will be mapped to a local
-directory named `server_instance`.
+The system's default configuration maps the service's port to port
+*8080* on the host, and the `sqlite3` database directory will be mapped
+to a local directory named `server_instance`.
 
 ## Running the Server Locally
 
