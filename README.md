@@ -192,3 +192,7 @@ Then, from `<root-dir>`, run the command
     $ ./bin/run_sensor_server
 
 The server will start on port 8080.
+
+## License
+
+This project is released under GNU General Public License v3.0.
